@@ -1,5 +1,5 @@
 <?php
-// delete.php (PDO Style - Prepared Statement Delete)
+// delete.php (PDO Style - Delete record using Prepared Statement)
 include 'db.php';
 
 $id = $_GET['id'];
