@@ -1,5 +1,5 @@
 <?php
-// view.php - Displays all records in HTML table using JOIN
+// view.php (PDO Style - Display table using JOIN query)
 include 'db.php';
 
 $sql = "SELECT student.*, def_class.class_name, def_subject.subject_name 
@@ -8,15 +8,16 @@ $sql = "SELECT student.*, def_class.class_name, def_subject.subject_name
         JOIN def_subject ON student.subject_id = def_subject.subject_id 
         ORDER BY student.student_id DESC";
 
-$result = mysqli_query($conn, $sql);
+$stmt = $conn->query($sql);
+$students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html>
-<head><title>Student List</title></head>
+<head><title>Student List (PDO)</title></head>
 <body>
 
-<h2>Student Records</h2>
+<h2>Student Records (PDO)</h2>
 <a href="index.php">Add New Student</a><br><br>
 
 <table border="1" cellpadding="8">
@@ -29,7 +30,7 @@ $result = mysqli_query($conn, $sql);
         <th>Actions</th>
     </tr>
 
-    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+    <?php foreach ($students as $row) { ?>
     <tr>
         <td><?php echo $row['student_id']; ?></td>
         <td><?php echo $row['student_name']; ?></td>
