@@ -1,14 +1,10 @@
 <?php
-// view.php - Displays all records in HTML table using JOIN
+// view.php - Displays all records in HTML table
 include 'db.php';
 
-$sql = "SELECT student.*, def_class.class_name, def_subject.subject_name 
-        FROM student 
-        JOIN def_class ON student.class_id = def_class.class_id 
-        JOIN def_subject ON student.subject_id = def_subject.subject_id 
-        ORDER BY student.student_id DESC";
-
+$sql = "SELECT * FROM student ORDER BY student_id ASC";
 $result = mysqli_query($conn, $sql);
+$sn = 1;
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +17,7 @@ $result = mysqli_query($conn, $sql);
 
 <table border="1" cellpadding="8">
     <tr>
+        <th>S.N.</th>
         <th>ID</th>
         <th>Name</th>
         <th>Address</th>
@@ -31,6 +28,7 @@ $result = mysqli_query($conn, $sql);
 
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
     <tr>
+        <td><?php echo $sn++; ?></td>
         <td><?php echo $row['student_id']; ?></td>
         <td><?php echo $row['student_name']; ?></td>
         <td><?php echo $row['address']; ?></td>
